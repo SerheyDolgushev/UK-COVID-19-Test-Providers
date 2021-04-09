@@ -24,4 +24,11 @@
 ///
 // Custom stuff starts here
 ///
+    @import "partials/components/layout/masthead";
+    @import "partials/components/layout/body";
+    @import "partials/components/layout/footer";
     @import "partials/components/content/typography";
+
+    #providers-table {
+        z-index: 5;
+    }

@@ -5,6 +5,8 @@
 /// @access public
 ////
 
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap');
+
 // Theme Colors
 $blue: #0081c6;
 
@@ -13,8 +15,9 @@ $white: #fff;
 $black: #000;
 
 // Font Variables
-$text-header: 'Open Sans', Helvetica, Arial, sans-serif;
+$text-header: 'Dela Gothic One', 'Open Sans', Helvetica, Arial, sans-serif;
 $text-body: 'Open Sans', Helvetica, Arial, sans-serif;
+$text-shadow: 0px 0px 0px rgba(150, 150, 150, 0.95);
 
 // Local font path
 $custom-font-path: "fonts/"; // Put the path to your fonts folder here. This is relative to the compiled CSS file. This is required for leveraging the custom local fonts example in the 'fonts' partial.

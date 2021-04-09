@@ -1,0 +1,17 @@
+body {
+    background: url("../img/repeat.gif") repeat;
+    color: $white;
+    font-size: 18px;
+    line-height: 1.25em;
+}
+
+.block {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    &.tac {
+        text-align: center;
+        p {
+            text-align: center;
+        }
+    }
+}

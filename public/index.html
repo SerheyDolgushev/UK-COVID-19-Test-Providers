@@ -19,6 +19,8 @@
     <meta name="author" content="SitePoint">
 
     <link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.min.css" />
+
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
 
     <style>
@@ -30,21 +32,42 @@
 </head>
 
 <body>
-    <h1>UK COVID-19 Test Providers</h1>
 
-    <div>
-        <ul>
-            <li>
-                <a href="https://www.gov.uk/guidance/coronavirus-covid-19-safer-air-travel-guidance-for-passengers#before-booking-a-flight--travel-restrictions" target="_blank">Fit to Fly</a> - Test for international travelers who are leaving UK (depends on the travel destination).
-            </li>
-            <li>
-                <a href="https://www.gov.uk/guidance/testing-on-day-2-and-day-8-for-international-arrivals" target="_blank">Day 2 and day 8 for international arrivals</a> - Two tests which all international arrivals are required to take.
-            </li>
-            <li>
-                <a href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel" target="_blank">Test to Release</a> - Voluntary test for international arrivals, which is taken on day 5. If it is negative you can stop quarantine but still <a href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel#if-you-test-negative" target="_blank">required to take Day 8 test</a>.
-            </li>
-        </ul>
-    </div>
+    <section class="masthead">
+        <h1>FIT TO FLY</h1>
+        <p class="is-large">Helping travellers coming into the U.K. find clinics for COVID-19 quarantine testing.</p>
+    </section>
+
+    <div class="masthead-image"></div>
+
+    <section class="body">
+        <div class="container">
+            <div class="block tac">
+                <p class="is-large">Data is updated every 3 hours and fetched from <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview"> here</a>.
+                <p class="is-large">Latest raw data: <a href="/provider_prices.csv">provider_prices.csv</a>.</p>
+            </div>
+
+            <div id="providers-table" class="block"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="block">
+                <ul>
+                    <li>
+                        <a href="https://www.gov.uk/guidance/coronavirus-covid-19-safer-air-travel-guidance-for-passengers#before-booking-a-flight--travel-restrictions" target="_blank">Fit to Fly</a> - Test for international travelers who are leaving UK (depends on the travel destination).
+                    </li>
+                    <li>
+                        <a href="https://www.gov.uk/guidance/testing-on-day-2-and-day-8-for-international-arrivals" target="_blank">Day 2 and day 8 for international arrivals</a> - Two tests which all international arrivals are required to take.
+                    </li>
+                    <li>
+                        <a href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel" target="_blank">Test to Release</a> - Voluntary test for international arrivals, which is taken on day 5. If it is negative you can stop quarantine but still <a href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel#if-you-test-negative" target="_blank">required to take Day 8 test</a>.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 
     <div>
         <p>Latest raw data: <a href="/provider_prices.csv">provider_prices.csv</a></p>

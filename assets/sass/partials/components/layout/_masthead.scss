@@ -1,0 +1,25 @@
+.masthead {
+    padding-top: 150px;
+    margin-bottom: 50px;
+    z-index: 2;
+    position: relative;
+    h1, p {
+        text-align: center;
+    }
+    h1 {
+        font-size: 72px;
+        font-weight: 900;
+        font-family: $text-header;
+    }
+}
+
+.masthead-image {
+    background: url("../img/travel.svg") no-repeat;
+    background-size: cover;
+    width: 140%;
+    height: 775px;
+    position: absolute;
+    top: -60px;
+    z-index: 0;
+    left: -20%;
+}

@@ -6,12 +6,21 @@
 
 h1, .h1 {
   @include heading-xxlarge;
-  color: $type--dark;
+  color: $white;
   font-family: $text-header;
+  text-shadow: $text-shadow;
 }
 
 p {
   @include body;
-  color: $type--medium;
+  color: $white;
   font-family: $text-body;
+  &.is-large {
+    font-size: 24px;
+  }
+}
+
+a {
+  color: $white;
+  text-decoration: underline;
 }
