@@ -31,13 +31,13 @@ This tool is designed to fetch the prices for all testing types directly from th
 
 ## Installation
 
-1. Clone the tool
+1. Clone the tool:
     ```bash
     git clone git@github.com:SerheyDolgushev/UK-COVID-19-Test-Providers.git
     cd UK-COVID-19-Test-Providers
     ```
 
-2. Update the dependencies
+2. Update the dependencies:
     ```bash
     composer install
     ```
@@ -47,7 +47,7 @@ This tool is designed to fetch the prices for all testing types directly from th
     php bin/console uk-covid-test-providers:parse-prices
     ```
 
-4. Start the local webserver
+4. Start the local webserver:
     ```bash
     php -S localhost:8001 -t public
     ```
