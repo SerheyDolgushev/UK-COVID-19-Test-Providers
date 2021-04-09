@@ -1,0 +1,9 @@
+.app: &app
+    type: upstream
+    upstream: app:http
+    cache:
+        enabled: false
+    ssi:
+        enabled: false
+
+https://{default}/: *app
