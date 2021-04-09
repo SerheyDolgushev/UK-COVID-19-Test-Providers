@@ -1,0 +1,41 @@
+////
+/// Tooltips
+/// This adds styled tooltips that displays the full text of links. Best used in conjunction with truncated links.
+/// @author Contextual Code
+/// @access public
+///
+/// Note: this is pluralized as 'tooltips' because some bootstrap setups will already include a 'tooltip' feature. Use that one instead where appropriate.
+/// @todo This needs testing before it should be included.
+////
+
+.tooltips {
+    display: inline;
+    position: relative;
+    &:hover:after {
+        background: #333;
+        background: rgba(0,0,0,.8);
+        border-radius: 5px;
+        bottom: 26px;
+        color: #fff;
+        content: attr(title);
+        left: 20%;
+        padding: 5px 15px;
+        position: absolute;
+        z-index: 98;
+        width: 220px;
+    }
+    &:hover:before {
+        border: solid;
+        border-color: #333 transparent;
+        border-width: 6px 6px 0 6px;
+        bottom: 20px;
+        content: "";
+        left: 50%;
+        position: absolute;
+        z-index: 99;
+    }
+}
+
+/// In order for this to work, add both the class .tooltop and a title attribute to your link (usually the same as the link text itself)
+/// @example
+///     <a href="mysite.com" class="tooltip" title="title here">title here</a>

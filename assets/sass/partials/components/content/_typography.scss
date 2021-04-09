@@ -1,0 +1,17 @@
+////
+/// Basic Typography
+/// @author Contextual Code
+/// @access public
+////
+
+h1, .h1 {
+  @include heading-xxlarge;
+  color: $type--dark;
+  font-family: $text-header;
+}
+
+p {
+  @include body;
+  color: $type--medium;
+  font-family: $text-body;
+}

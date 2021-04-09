@@ -1,0 +1,21 @@
+////
+/// Ellipsis Mixin
+/// Text too long for it's container should end in an ellipsis.
+/// @author Contextual Code
+/// @access public
+///
+/// You will likely need to set a width on the element in order for this to work properly. It has been ommitted here for simplicity.
+/// @todo work in width and/or max-width as an input option here
+////
+
+@mixin ellipsis() {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/// @example
+///     .class { @include ellipsis; }
+///
+/// @output
+///     .class { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }

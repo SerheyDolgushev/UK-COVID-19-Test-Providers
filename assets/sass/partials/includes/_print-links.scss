@@ -1,0 +1,68 @@
+////
+/// Print Links
+/// This appends URLs after links in print styles.
+/// This is a feature that is included in frameworks like Bootstrap and Foundation so it may need some tinkering or be unnecessary if you are including a base framework in the project.
+/// @author Contextual Code
+/// @access public
+///
+/// @todo this has too many options. this needs to be standardized for best practices and simplified
+///
+////
+
+$print-link-blue: #0000ff;
+$print-link-visited-purple: #800080;
+
+@media print {
+    // OPTIONAL: Put back default browser colors so the user can see where the links are on their print.
+    //a {color: $print-link-blue !important;}
+    //a:visited {color: $print-link-visited-purple !important;}
+
+    // OPTIONAL: Underline all links regardless of other styles.
+    //a, a:visited {text-decoration: underline !important;}
+
+    a[href^="http"], a[href^="http"]:visited,
+    a[href^="/"], a[href^="/"]:visited { // OPTIONAL: these selectors allow relative URL paths.
+        color: $black !important; // TURN THIS OFF IF YOU REPLACED DEFAULT LINK COLORS ABOVE
+        &:after{
+            content:" (" attr(href) ") " !important; // !important to override external link icons, mimetype icons or any other type of :after content.
+            font-size:0.8em;
+            font-weight:normal;
+            -ms-word-wrap: break-word;
+            word-wrap: break-word;
+            -ms-word-break: break-all;
+            word-break: break-all;
+
+            // This section overrides any widths, heights or display modes that had been set for external link icons, mimetype icons or any other type of :after content.
+            margin-left: 2px;
+            width: auto;
+            height: auto;
+            display: inline-block;
+
+            // OPTIONAL: color of :after URL
+            color: $print-link-blue !important;
+        }
+    }
+
+    /// OPTIONAL - This prevents this behavior from occuring on mailto links. Useful if most email links' content is the email address itself.
+    a[href^="mailto"], a[href^="mailto"]:visited {
+        &:after {
+            content: none;
+        }
+    }
+
+}
+
+/// @example
+///    @media print {
+///        a[href], a[href]:visited {
+///            &:after{
+///                content:" (" attr(href) ") ";
+///                font-size:0.8em;
+///                font-weight:normal;
+///                -ms-word-wrap: break-word;
+///                word-wrap: break-word;
+///                -ms-word-break: break-all;
+///                word-break: break-all;
+///            }
+///        }
+///    }

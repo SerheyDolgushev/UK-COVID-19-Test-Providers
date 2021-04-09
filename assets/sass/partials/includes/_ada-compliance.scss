@@ -1,0 +1,41 @@
+////
+/// ADA Compliance Helpers
+/// This file defines some tools to aide in ADA compliance.
+/// @author Contextual Code
+/// @access public
+///
+////
+
+// Hides items only used as aria labels
+.aria-text {
+    font-size: 0px;
+    padding: 0px;
+    margin: 0px;
+    color: #fff !important; // forces color contrast standards compliance
+    background-color: #000 !important; // forces color contrast standards compliance
+    width: 0px;
+    height: 0px;
+}
+
+// Hides label text when were subbing out an icon - needed to prevent empty text tags
+.aria-icon-label {
+  font-size: 0px;
+}
+/// @example
+// <span class="icon-prev">
+//     <span class="aria-icon-label">Go back a slide</span>
+// </span>
+
+
+// Hides elements that are being used as aria lables
+div[id^="#aria--"],
+div[id*=" #aria-"] {
+    h6 {
+      display: none;
+    }
+}
+/// @example
+// <nav id="nav" aria-labeledby="aria-nav">
+//     <h6 id="aria-nav">Menu</h6>
+//     ... menu ...
+// </nav>

@@ -1,0 +1,22 @@
+////
+/// Alpha Transparency for Variables
+/// Allows you to take a variable hex color and apply transparency.
+/// @author Contextual Code
+/// @access public
+////
+
+@mixin alpha-attribute($attribute, $color, $background) {
+  $percent: alpha($color) * 100%;
+  $opaque: opacify($color, 1);
+  $solid-color: mix($opaque, $background, $percent);
+  #{$attribute}: $solid-color;
+  #{$attribute}: $color;
+}
+
+/// @example
+///     $blue: #0000ff; // This is the color you want to apply transparency to
+///     $background-fallback: #fff; // This is the color of the background on which the item will appear. Applies a fallback solid hex color for browsers that don't support transparency.
+///     .button { @include alpha-attribute('background-color', rgba($blue, 0.5), $background-fallback); }
+///
+/// @output
+///     .button { background-color: #ff8080; background-color: rgba(255, 0, 0, 0.5); }

@@ -1,0 +1,22 @@
+////
+/// Improved Focus
+/// This include replaces the standard link focus with a background color / highlight to improve legibility and accessibility.
+/// Very likely this will need to be made more specific or overriden for certain features.
+/// @author Contextual Code
+/// @access public
+////
+
+$if-background-color: #cef; // Replace this variable with your desired highlight color.
+
+a:focus {
+    outline: none;
+    background-color: $if-background-color;
+    text-shadow: 0.05em 0 0 $if-background-color,
+                -0.05em 0 0 $if-background-color,
+                0 0.05em 0 $if-background-color,
+                0 -0.05em 0 $if-background-color,
+                0.1em 0 0 $if-background-color,
+                -0.1em 0 0 $if-background-color,
+                0 0.1em 0 $if-background-color,
+                0 -0.1em 0 $if-background-color;
+}

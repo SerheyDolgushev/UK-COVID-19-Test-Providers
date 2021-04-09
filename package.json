@@ -1,0 +1,33 @@
+{
+  "name": "UICompiler",
+  "version": "0.1.5",
+  "description": "Compiles and minifies SASS JS and runs many other tasks",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt Smiley <matt@contextualcode.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer-core": "^5.2.1",
+    "cssnano": "~3.7.3",
+    "grunt": "~1.0.1",
+    "grunt-autoprefixer": "~3.0.4",
+    "grunt-bowercopy": "^1.2.4",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "~1.0.0",
+    "grunt-contrib-imagemin": "^1.0.1",
+    "grunt-contrib-jshint": "~1.0.0",
+    "grunt-contrib-uglify": "~2.0.0",
+    "grunt-contrib-watch": "~1.0.0",
+    "grunt-newer": "^1.2.0",
+    "grunt-postcss": "~0.8.0",
+    "grunt-sass": "~1.2.0",
+    "postcss-wcag-contrast": "^1.0.0"
+  },
+  "dependencies": {
+    "imagemin-gifsicle": "^5.1.0",
+    "imagemin-mozjpeg": "^5.1.0",
+    "imagemin-pngquant": "^5.0.0"
+  }
+}

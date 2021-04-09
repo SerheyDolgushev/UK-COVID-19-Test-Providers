@@ -1,0 +1,45 @@
+////
+/// Media Query Mixin
+/// This mixin defines some common breakpoints and offers a quick way to build simple media queries.
+/// @author Contextual Code
+/// @access public
+////
+
+$media: screen;
+$feature: min-width; /// This is the mobile first approach, you can change to 'max-width' if you need to work 'desktop first'
+$breakpoint-desk-large: 1300px;
+$breakpoint-desk: 1100px;
+$breakpoint-tablet: 768px;
+$breakpoint-mobile-large: 600px;
+$breakpoint-mobile-med: 480px;
+$breakpoint-mobile: 320px;
+
+@mixin m-query($breakpoint) {
+    @if $breakpoint == large {
+        @media ($media and $feature: $breakpoint-desk-large) { @content; }
+    }
+    @elseif $breakpoint == desk {
+        @media ($media and $feature: $breakpoint-desk) { @content; }
+    }
+    @elseif $breakpoint == tablet {
+        @media ($media and $feature: $breakpoint-tablet) { @content; }
+    }
+    @else if $breakpoint == mobile-large {
+        @media ($media and $feature: $breakpoint-mobile-large) { @content; }
+    }
+    @else if $breakpoint == mobile-med {
+        @media ($media and $feature: $breakpoint-mobile-med) { @content; }
+    }
+    @else if $breakpoint == mobile {
+            @media ($media and $feature: $breakpoint-mobile) { @content; }
+    }
+    @else {
+        @media ($media and $feature: $breakpoint) { @content; }
+    }
+}
+
+/// @example
+///     @include m-query(mobile) { .mobile-only { font-color: red; } }
+///
+/// @output
+///     @media (min-width: 320px) { .test-case { font-color: red; } }

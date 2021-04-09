@@ -1,0 +1,23 @@
+////
+/// Font size Mixin
+/// This mixin allows a fallback for IE8 (and below) while allowing you to use rem values for font sizes.
+/// First establishes the pixel value fallback, then applies the rem value for browsers that support it.
+/// @author Contextual Code
+/// @access public
+////
+
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+
+/// @example
+///     p { @include font-size(14px) }
+///
+/// @output
+///     p { font-size: 14px; font-size: 0.8rem; }

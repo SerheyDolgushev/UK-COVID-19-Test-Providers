@@ -1,0 +1,23 @@
+////
+/// External Link Inidcators
+/// This include intended to handle external link icons.
+/// @author Contextual Code
+/// @access public
+///
+/// The image reference will likely only work once placed on a web server.
+/// You may want to edit the color or style of the image located at: /img/external-link.svg
+////
+
+$myDomain: "contexttualcode.com"; // Change to the project domain.
+$myExternalIcon: "img/external-link.svg"; // Change for a different path.
+
+[href^="http"]:not([href*="#{$myDomain}"])::after {
+    display: inline-block;
+    content: " ";
+    width: 1em;
+    height: 1em;
+    background-image: url("#{$myExternalIcon}");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 75% auto;
+}

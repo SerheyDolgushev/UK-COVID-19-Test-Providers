@@ -1,0 +1,18 @@
+////
+/// Webkit Only Media Query Mixin
+/// This mixin allows a quick way to target only webkit browsers.
+/// @author Contextual Code
+/// @access public
+////
+
+@mixin webkit-only() {
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+        @content;
+    }
+}
+
+/// @example
+///     @include webkit-only() { .webkit-only { font-color: red; } }
+///
+/// @output
+///     @media screen and (-webkit-min-device-pixel-ratio: 0) { .webkit-only { color: red; } }
