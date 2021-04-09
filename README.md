@@ -27,7 +27,7 @@ This tool is designed to fetch the prices for all testing types directly from th
 
 5. If the requested page has special "price" HTML elements the script will try to extract the price from them.
 
-6. All the prices are extracted from the requested page. Depending on the test type, some extracted prices are ignored: less than £151 for Day 2 & 8, and less than £50 for other test types. The minimal price is used from the non ignored (valid) ones.
+6. All the prices are extracted from the requested page. Too low and too high prices are ignored (limits depend on the test type). The minimal price is used from the non ignored (valid) ones.
 
 ## Installation
 
@@ -47,7 +47,9 @@ This tool is designed to fetch the prices for all testing types directly from th
     php bin/console uk-covid-test-providers:parse-prices
     ```
 
-4. Check the CSV file with prices:
+4. Start the local webserver
     ```bash
-    cat var/data/provider_prices.csv
+    php -S localhost:8001 -t public
     ```
+
+5. Open [http://localhost:8001/index.html]()

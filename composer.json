@@ -7,6 +7,7 @@
         "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "fabpot/goutte": "^4.0",
         "symfony/console": "5.2.*",
         "symfony/dotenv": "5.2.*",

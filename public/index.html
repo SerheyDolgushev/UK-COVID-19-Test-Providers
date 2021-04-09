@@ -1,0 +1,138 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>UK COVID-19 Test Providers</title>
+    <meta name="description" content="The tool which fetches the latest prices for all COVID-19 Test from all UK Providers websites.">
+    <meta name="author" content="SitePoint">
+
+    <link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <p>Data is updated every 3 hours and <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview">https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview</a> is used to fetch all the providers and their websites.</p>
+        <p>Latest raw data: <a href="/provider_prices.csv">provider_prices.csv</a>.</p>
+    </div>
+
+    <div id="providers-table"></div>
+
+    <div>
+        <ul>
+            <li>
+                <a href="https://www.gov.uk/guidance/coronavirus-covid-19-safer-air-travel-guidance-for-passengers#before-booking-a-flight--travel-restrictions" target="_blank">Fit to Fly</a> - Test for international travelers who are leaving UK (depends on the travel destination).
+            </li>
+            <li>
+                <a href="https://www.gov.uk/guidance/testing-on-day-2-and-day-8-for-international-arrivals" target="_blank">Day 2 and day 8 for international arrivals</a> - Two tests which all international arrivals are required to take.
+            </li>
+            <li>
+                <a href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel" target="_blank">Test to Release</a> - Voluntary test for international arrivals, which is taken on day 5. If it is negative you can stop quarantine but still <a href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel#if-you-test-negative" target="_blank">required to take Day 8 test</a>.
+            </li>
+        </ul>
+    </div>
+
+    <script>
+    var minMaxFilterEditor = function(cell, onRendered, success, cancel, editorParams){
+        var end;
+        var container = document.createElement("span");
+
+        //create and style inputs
+        var start = document.createElement("input");
+        start.setAttribute("type", "number");
+        start.setAttribute("placeholder", "Min");
+        start.setAttribute("min", 0);
+        start.setAttribute("max", 100);
+        start.style.padding = "4px";
+        start.style.width = "50%";
+        start.style.boxSizing = "border-box";
+        start.value = cell.getValue();
+
+        function buildValues(){
+            success({
+                start:start.value,
+                end:end.value,
+            });
+        }
+
+        function keypress(e){
+            if(e.keyCode == 13){
+                buildValues();
+            }
+
+            if(e.keyCode == 27){
+                cancel();
+            }
+        }
+
+        end = start.cloneNode();
+        end.setAttribute("placeholder", "Max");
+
+        start.addEventListener("change", buildValues);
+        start.addEventListener("blur", buildValues);
+        start.addEventListener("keydown", keypress);
+
+        end.addEventListener("change", buildValues);
+        end.addEventListener("blur", buildValues);
+        end.addEventListener("keydown", keypress);
+
+        container.appendChild(start);
+        container.appendChild(end);
+
+        return container;
+    }
+    var minMaxFilter = function(headerValue, rowValue, rowData, filterParams){
+        if (rowValue){
+            if(headerValue.start != ""){
+                if(headerValue.end != ""){
+                    return rowValue >= headerValue.start && rowValue <= headerValue.end;
+                }else{
+                    return rowValue >= headerValue.start;
+                }
+            } else {
+                if(headerValue.end != ""){
+                    return rowValue <= headerValue.end;
+                }
+            }
+        }
+
+        return (headerValue.start != "" || headerValue.end != "") ? false : true;
+    }
+
+    //Build Tabulator
+    var table = new Tabulator("#providers-table", {
+        height:"500px",
+        layout:"fitColumns",
+        placeholder:"No Data Set",
+        columns:[
+            {title:"Name of provider", field: "name", sorter: "string", headerFilter:"input"},
+            {title:"Region", field: "region", sorter: "string", headerFilter: "select", headerFilterParams: {values: true}},
+            {title:"Email", field: "email", headerSort: false},
+            {title:"Telephone", field: "phone", headerSort: false},
+            {title:"Website", field: "website", headerSort: false, formatter: "link", formatterParams: {
+                labelField: "website",
+                target: "_blank",
+            }},
+            {title:"Fit to Fly", width: 110, field:"fit_to_fly_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+                labelField:"fit_to_fly_formatted",
+                urlField:"fit_to_fly_uri",
+                target:"_blank",
+            }},
+            {title:"Day 2 & 8", width: 110, field:"day_2_and_8_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+                    labelField:"day_2_and_8_formatted",
+                    urlField:"day_2_and_8_uri",
+                    target:"_blank",
+            }},
+            {title:"Test to Release", width: 110, field:"test_to_release_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+                    labelField:"test_to_release_formatted",
+                    urlField:"test_to_release_uri",
+                    target:"_blank",
+            }}
+        ],
+    });
+    table.setData("/provider_prices.json");
+    </script>
+</body>
+</html>

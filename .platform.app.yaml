@@ -20,4 +20,5 @@ web:
     locations:
         /:
             root: public
-            passthru: /index.php
+            index:
+                - index.html

@@ -30,8 +30,13 @@ class ParsePrices extends Command
         '.price',
     ];
     private const PRICE_REG_EXP = '/(\£([\d]+(\.[\d]{2})?))/u';
-    private const MIN_PRICES = ['fit_to_fly' => 50, 'day_2_and_8' => 151, 'test_to_release' => 75];
-    private const DATA_FILE = 'var/data/provider_prices.csv';
+    private const PRICE_LIMITS = [
+        'fit_to_fly' => [50, 250],
+        'day_2_and_8' => [151, 450],
+        'test_to_release' => [75, 500]
+    ];
+    private const DATA_FILE_CSV = 'var/data/provider_prices.csv';
+    private const DATA_FILE_JSON = 'var/data/provider_prices.json';
 
     private LoggerInterface $logger;
     private ConsoleSectionOutput $sectionErrors;
@@ -52,8 +57,8 @@ class ParsePrices extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        if (!is_writable(dirname(self::DATA_FILE))) {
-            $io->error('Data file "' . self::DATA_FILE . '" is not writable');
+        if (!is_writable(dirname(self::DATA_FILE_CSV))) {
+            $io->error('Data file "' . self::DATA_FILE_CSV . '" is not writable');
 
             return 1;
         }
@@ -87,6 +92,7 @@ class ParsePrices extends Command
         $progressBar->finish();
 
         $this->storePrices($data);
+        $this->convertPricesToJson();
 
         $io->newLine();
         if ($providersWithoutPricesCount) {
@@ -94,7 +100,7 @@ class ParsePrices extends Command
         }
         $io->success([
             'Prices parsed for ' . (count($data) - $providersWithoutPricesCount) . ' providers',
-            'And they are saved into ' . self::DATA_FILE,
+            'And they are saved into ' . self::DATA_FILE_CSV,
         ]);
 
         return 0;
@@ -104,7 +110,7 @@ class ParsePrices extends Command
     {
         $crawler = $this->getCrawler(self::PROVIDERS_URL);
 
-        return $crawler->filter(self::PROVIDERS_CSS_SELECTOR)->each(function (Crawler $node) {
+        $allProviders = $crawler->filter(self::PROVIDERS_CSS_SELECTOR)->each(function (Crawler $node) {
             return [
                 'name' => $this->getProviderField($node, 1),
                 'region' => $this->getProviderField($node, 2),
@@ -113,6 +119,15 @@ class ParsePrices extends Command
                 'website' => $this->getProviderField($node, 5),
             ];
         });
+
+        $uniqueByWebsite = [];
+        foreach ($allProviders as $provider) {
+            if ($provider['website'] && !isset($uniqueByWebsite[$provider['website']])) {
+                $uniqueByWebsite[$provider['website']] = $provider;
+            }
+        }
+
+        return $uniqueByWebsite;
     }
 
     private function getCrawler(string $url): Crawler
@@ -260,9 +275,9 @@ class ParsePrices extends Command
             $prices = $matches[2];
             sort($prices);
 
-            $minPrice = self::MIN_PRICES[$testType];
-            $prices = array_filter($prices, static function($price) use ($minPrice) {
-                return (int) $price >= $minPrice;
+            $priceLimits = self::PRICE_LIMITS[$testType];
+            $prices = array_filter($prices, static function($price) use ($priceLimits) {
+                return $price >= $priceLimits[0] && $price <= $priceLimits[1];
             });
 
             return $prices;
@@ -301,8 +316,9 @@ class ParsePrices extends Command
 
     private function storePrices(array $data): void
     {
-        $fp = fopen(self::DATA_FILE, 'w+b');
+        $fp = fopen(self::DATA_FILE_CSV, 'w+b');
 
+        // headers
         if (count($data)) {
             fputcsv($fp, array_keys($data[0]));
         }
@@ -311,6 +327,41 @@ class ParsePrices extends Command
             fputcsv($fp, $provider);
         }
 
+        fclose($fp);
+    }
+
+    private function convertPricesToJson(): void
+    {
+        $priceFields = ['fit_to_fly' => 6, 'day_2_and_8' => 8, 'test_to_release' => 10];
+
+        $fp = fopen(self::DATA_FILE_CSV, 'r');
+        // skip headers
+        fgetcsv($fp);
+
+        $data = [];
+        while (($provider = fgetcsv($fp)) !== false) {
+            $item = [
+                'name' => $provider[0],
+                'region' => $provider[1],
+                'email' => $provider[2],
+                'phone' => $provider[3],
+                'website' => $provider[4],
+                'fit_to_fly_uri' => $provider[5],
+                'day_2_and_8_uri' => $provider[7],
+                'test_to_release_uri' => $provider[9],
+            ];
+
+            foreach ($priceFields as $priceField => $csvIndex) {
+                $item[$priceField . '_price'] = (int) $provider[$csvIndex];
+                $item[$priceField . '_formatted'] = $item[$priceField . '_price']  > 0 ? '£' . number_format((float) $provider[$csvIndex], 2) : '';
+            }
+
+            $data[] = $item;
+        }
+        fclose($fp);
+
+        $fp = fopen(self::DATA_FILE_JSON, 'w+b');
+        fwrite($fp, json_encode($data));
         fclose($fp);
     }
 }
