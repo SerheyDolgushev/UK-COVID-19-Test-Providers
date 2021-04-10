@@ -14,7 +14,18 @@ class Repository
 
     public function fetchUnique(): array
     {
-        return $this->makeUniqueBy($this->fetchAll(), 'website');
+        $providers = [];
+        $unique = $this->makeUniqueBy($this->fetchAll(), 'website');
+
+        foreach ($unique as $provider) {
+            if (filter_var($provider['website'], FILTER_VALIDATE_URL) === false) {
+                continue;
+            }
+
+            $providers[] = $provider;
+        }
+
+        return $providers;
     }
 
     private function fetchAll(): array
@@ -29,6 +40,7 @@ class Repository
                 'phone' => $this->extractField($node, 4),
                 'website' => $this->extractField($node, 5),
                 'reviews_count' => 0,
+                'reviews_url' => null,
                 'reviews_score' => null,
             ];
         });

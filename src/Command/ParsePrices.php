@@ -58,7 +58,6 @@ class ParsePrices extends Command
         }
 
         $providers = $this->repository->fetchUnique();
-        $providers = array_slice($providers, 0, 20);
 
         $sectionProgress = $output->section();
         $this->sectionErrors = $output->section();
@@ -82,7 +81,7 @@ class ParsePrices extends Command
                 $providersWithoutPricesCount++;
             }
 
-            $providersWithPriceData[] = $this->priceExtractor->mergePricesData($provider, $prices);
+            $providersWithPriceData[$provider['website']] = $this->priceExtractor->mergePricesData($provider, $prices);
 
             $progressBar->advance();
         }

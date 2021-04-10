@@ -9,11 +9,11 @@ use Symfony\Component\HttpClient\Exception\TransportException;
 
 class TrustPilot
 {
-    private const BASE_URL = 'https://www.trustpilot.com/review/';
+    public const BASE_URL = 'https://www.trustpilot.com/review/';
 
     public function fetchData(string $url): array
     {
-        $data = ['reviews' => 0, 'score' => null];
+        $data = ['url' => self::BASE_URL, 'reviews' => 0, 'score' => null];
 
         $domain = parse_url($url, PHP_URL_HOST);
         $domain = str_replace('www.', '', $domain);
@@ -21,8 +21,9 @@ class TrustPilot
             return $data;
         }
 
+        $data['url'] = self::BASE_URL . $domain;
         try {
-            $crawler = (new Client())->request('GET', self::BASE_URL . $domain);
+            $crawler = (new Client())->request('GET', $data['url']);
         } catch(TransportException $e) {
             return $data;
         }

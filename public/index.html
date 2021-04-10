@@ -131,7 +131,12 @@
                 urlPrefix: "tel:",
                 target: "_blank",
             }},
-
+            {title:"Rating", width: 75, field:"reviews_score", sorter: "number"},
+            {title:"Reviews", width: 85, field:"reviews_count", sorter: "number", formatter: "link", formatterParams:{
+                labelField: "reviews_count",
+                urlField: "reviews_url",
+                target: "_blank",
+            }},
             {title:"Fit to Fly", width: 130, field:"fit_to_fly_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
                 labelField: "fit_to_fly_formatted",
                 urlField: "fit_to_fly_uri",

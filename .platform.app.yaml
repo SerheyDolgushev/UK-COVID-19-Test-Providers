@@ -26,3 +26,6 @@ crons:
     update_prices:
         spec: '* */3 * * *'
         cmd: php bin/console uk-covid-test-providers:parse-prices
+    update_reviews:
+        spec: '*/5 * * * *'
+        cmd: php bin/console uk-covid-test-providers:update-reviews --limit 20
