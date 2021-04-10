@@ -117,28 +117,35 @@
         layout:"fitColumns",
         placeholder:"No Data Set",
         columns:[
-            {title:"Name of provider", field: "name", sorter: "string", headerFilter:"input"},
-            {title:"Region", field: "region", sorter: "string", headerFilter: "select", headerFilterParams: {values: true}},
-            {title:"Email", field: "email", headerSort: false},
-            {title:"Telephone", field: "phone", headerSort: false},
-            {title:"Website", field: "website", headerSort: false, formatter: "link", formatterParams: {
-                labelField: "website",
+            {title:"Provider", field: "name", sorter: "string", headerFilter:"input", formatter: "link", formatterParams: {
+                    labelField: "name",
+                    urlField: "website",
+                    target: "_blank",
+                }},
+            {title:"Region", width: 175, field: "region", sorter: "string", headerFilter: "select", headerFilterParams: {values: true}},
+            {title:"Email", width: 250, field: "email", headerSort: false, formatter: "link", formatterParams:{
+                    urlPrefix: "mailto:",
+                    target: "_blank",
+                }},
+            {title:"Telephone", width: 100, field: "phone", headerSort: false, formatter: "link", formatterParams:{
+                urlPrefix: "tel:",
                 target: "_blank",
             }},
-            {title:"Fit to Fly", width: 110, field:"fit_to_fly_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
-                labelField:"fit_to_fly_formatted",
-                urlField:"fit_to_fly_uri",
-                target:"_blank",
+
+            {title:"Fit to Fly", width: 130, field:"fit_to_fly_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+                labelField: "fit_to_fly_formatted",
+                urlField: "fit_to_fly_uri",
+                target: "_blank",
             }},
-            {title:"Day 2 & 8", width: 110, field:"day_2_and_8_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
-                    labelField:"day_2_and_8_formatted",
-                    urlField:"day_2_and_8_uri",
-                    target:"_blank",
+            {title:"Day 2 & 8", width: 130, field:"day_2_and_8_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+                    labelField: "day_2_and_8_formatted",
+                    urlField: "day_2_and_8_uri",
+                    target: "_blank",
             }},
-            {title:"Test to Release", width: 110, field:"test_to_release_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
-                    labelField:"test_to_release_formatted",
-                    urlField:"test_to_release_uri",
-                    target:"_blank",
+            {title:"Test to Release", width: 130, field:"test_to_release_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+                    labelField: "test_to_release_formatted",
+                    urlField: "test_to_release_uri",
+                    target: "_blank",
             }}
         ],
     });
