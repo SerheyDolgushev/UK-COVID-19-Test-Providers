@@ -7,3 +7,7 @@
         enabled: false
 
 https://{default}/: *app
+
+https://master-7rqtwti-f2dppennkuoja.uk-1.platformsh.site:
+    type: redirect
+    to: "https://ukcovidtests.ccplatform.net"
