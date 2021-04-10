@@ -23,12 +23,7 @@
 </head>
 
 <body>
-    <div>
-        <p>Data is updated every 3 hours and <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview">https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview</a> is used to fetch all the providers and their websites.</p>
-        <p>Latest raw data: <a href="/provider_prices.csv">provider_prices.csv</a>.</p>
-    </div>
-
-    <div id="providers-table"></div>
+    <h1>UK COVID-19 Test Providers</h1>
 
     <div>
         <ul>
@@ -42,6 +37,39 @@
                 <a href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel" target="_blank">Test to Release</a> - Voluntary test for international arrivals, which is taken on day 5. If it is negative you can stop quarantine but still <a href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel#if-you-test-negative" target="_blank">required to take Day 8 test</a>.
             </li>
         </ul>
+    </div>
+
+    <div>
+        <p>Latest raw data: <a href="/provider_prices.csv">provider_prices.csv</a></p>
+    </div>
+    <div id="providers-table"></div>
+
+    <div>
+        <h2>How it works?</h2>
+        <ul>
+            <li>The providers list is fetched from <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview" target="_blank">https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview</a>.</li>
+            <li>The script tries to find all COVID-19 test type links on each provider's website.</li>
+            <li>
+                Each test type has predefined list of words:
+                <dl>
+                    <dt>Fit to Fly</dt>
+                    <dd>fit, fly</dd>
+                    <dt>Day 2 & 8: 2</dt>
+                    <dd>two, 8, eight, arrival</dd>
+                    <dt>Test to Release</dt>
+                    <dd>release, covid</dd>
+                </dl>
+            </li>
+            <li>The script extracts words from all links (URI and text) on the provider main page. And uses only matched links for each test type. The links with most words matched have higher priority.</li>
+            <li>If the matched link has the price in its text it will be used. Otherwise, the link URI is requested.</li>
+            <li>If the requested page has special "price" HTML elements the script will try to extract the price from them.</li>
+            <li>All the prices are extracted from the requested page. Too low and too high prices are ignored (limits depend on the test type). The minimal price is used from the non ignored (valid) ones.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h2>Suggestions?</h2>
+        <p>If you have an idea how the tool can be improved, please feel free to <a href="mailto:dolgushev.serhey@gmail.com">contact me</a>.</p>
     </div>
 
     <script>
