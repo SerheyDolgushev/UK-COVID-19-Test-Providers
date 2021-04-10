@@ -2,6 +2,12 @@
     "fabpot/goutte": {
         "version": "v4.0.1"
     },
+    "platformsh/config-reader": {
+        "version": "2.4.0"
+    },
+    "platformsh/symfonyflex-bridge": {
+        "version": "2.7.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
