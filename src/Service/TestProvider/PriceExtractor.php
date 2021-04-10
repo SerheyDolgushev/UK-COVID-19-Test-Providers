@@ -178,7 +178,7 @@ class PriceExtractor
             $crawler = (new Client())->request('GET', $linkUrl);
         } catch(TransportException $e) {
             if (is_callable($this->errorHandler)) {
-                $this->errorHandler($e->getMessage());
+                call_user_func($this->errorHandler, $e->getMessage());
             }
 
             return [];
