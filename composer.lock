@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d0b75f5da05a2ad299b6c9d223ce5cd",
+    "content-hash": "54f93f2506133ad1df8bbb15c94c8dcd",
     "packages": [
         {
             "name": "fabpot/goutte",
@@ -60,98 +60,6 @@
                 "source": "https://github.com/FriendsOfPHP/Goutte/tree/v4.0.1"
             },
             "time": "2020-10-14T06:49:09+00:00"
-        },
-        {
-            "name": "platformsh/config-reader",
-            "version": "2.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/platformsh/config-reader-php.git",
-                "reference": "5511abfdb673ccfcf0eac9eaf65204f73edd90fd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/platformsh/config-reader-php/zipball/5511abfdb673ccfcf0eac9eaf65204f73edd90fd",
-                "reference": "5511abfdb673ccfcf0eac9eaf65204f73edd90fd",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Platformsh\\ConfigReader\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Larry Garfield",
-                    "email": "larry@platform.sh"
-                }
-            ],
-            "description": "Small helper to access Platform.sh environment variables",
-            "support": {
-                "issues": "https://github.com/platformsh/config-reader-php/issues",
-                "source": "https://github.com/platformsh/config-reader-php/tree/2.4.0"
-            },
-            "time": "2020-12-10T20:50:12+00:00"
-        },
-        {
-            "name": "platformsh/symfonyflex-bridge",
-            "version": "2.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/platformsh/symfonyflex-bridge.git",
-                "reference": "21ddcd983635a93166757803a8fcf2fc09b5e277"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/platformsh/symfonyflex-bridge/zipball/21ddcd983635a93166757803a8fcf2fc09b5e277",
-                "reference": "21ddcd983635a93166757803a8fcf2fc09b5e277",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2",
-                "platformsh/config-reader": "^2.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "platformsh-flex-env.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Larry Garfield",
-                    "email": "larry@platform.sh"
-                }
-            ],
-            "description": "Bridge library for running Symfony Flex on Platform.sh",
-            "support": {
-                "issues": "https://github.com/platformsh/symfonyflex-bridge/issues",
-                "source": "https://github.com/platformsh/symfonyflex-bridge/tree/2.7.0"
-            },
-            "time": "2021-01-27T17:43:11+00:00"
         },
         {
             "name": "psr/cache",
@@ -3131,8 +3039,7 @@
     "platform": {
         "php": ">=7.4",
         "ext-ctype": "*",
-        "ext-iconv": "*",
-        "ext-json": "*"
+        "ext-iconv": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
