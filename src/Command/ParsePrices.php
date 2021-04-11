@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Service\ReviewsCache;
 use App\Service\TestProvider\PriceExtractor;
 use App\Service\TestProvider\Repository;
 use App\Service\TestProvider\Storage\Csv as StorageCsv;
@@ -20,6 +21,7 @@ class ParsePrices extends Command
 {
     private Repository $repository;
     private PriceExtractor $priceExtractor;
+    private ReviewsCache $reviews;
     private StorageCsv $storageCsv;
     private StorageJson $storageJson;
     private LoggerInterface $logger;
@@ -28,6 +30,7 @@ class ParsePrices extends Command
     public function __construct(
         Repository $repository,
         PriceExtractor $priceExtractor,
+        ReviewsCache $reviews,
         StorageCsv $storageCsv,
         StorageJson $storageJson,
         LoggerInterface $logger
@@ -36,6 +39,7 @@ class ParsePrices extends Command
 
         $this->repository = $repository;
         $this->priceExtractor = $priceExtractor;
+        $this->reviews = $reviews;
         $this->storageCsv = $storageCsv;
         $this->storageJson = $storageJson;
         $this->logger = $logger;
@@ -57,7 +61,9 @@ class ParsePrices extends Command
             return 1;
         }
 
+        $reviews = $this->reviews->load();
         $providers = $this->repository->fetchUnique();
+        $providers = array_slice($providers, 0, 10);
 
         $sectionProgress = $output->section();
         $this->sectionErrors = $output->section();
@@ -81,7 +87,13 @@ class ParsePrices extends Command
                 $providersWithoutPricesCount++;
             }
 
-            $providersWithPriceData[$provider['website']] = $this->priceExtractor->mergePricesData($provider, $prices);
+            if (isset($reviews[$provider['website']])) {
+                $review = $reviews[$provider['website']];
+                $provider = $this->reviews->mergeReviewsData($provider, $review);
+            }
+
+            $provider = $this->priceExtractor->mergePricesData($provider, $prices);
+            $providersWithPriceData[] = $provider;
 
             $progressBar->advance();
         }

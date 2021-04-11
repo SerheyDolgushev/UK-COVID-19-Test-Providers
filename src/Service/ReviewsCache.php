@@ -63,4 +63,13 @@ class ReviewsCache extends Json
 
         $this->store($reviews);
     }
+
+    public function mergeReviewsData(array $provider, array $review): array
+    {
+        $provider['reviews_count'] = $review['count'];
+        $provider['reviews_score'] = $review['score'];
+        $provider['reviews_url'] = $review['url'];
+
+        return $provider;
+    }
 }

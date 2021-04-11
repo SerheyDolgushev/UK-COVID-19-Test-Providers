@@ -77,9 +77,7 @@ class UpdateReviews extends Command
         foreach ($reviews as $review) {
             foreach ($providers as &$provider) {
                 if ($provider['website'] === $review['website']) {
-                    $provider['reviews_count'] = $review['count'];
-                    $provider['reviews_score'] = $review['score'];
-                    $provider['reviews_url'] = $review['url'];
+                    $provider = $this->cache->mergeReviewsData($provider, $review);
 
                     break;
                 }
