@@ -63,7 +63,10 @@ class UpdateReviews extends Command
             $progressBar->setMessage($review['website'], 'website');
 
             $data = $this->trustpilot->fetchData($review['website']);
-            $this->cache->update($review['website'], $data['url'], $data['reviews'], $data['score']);
+            // Do not override previous data on error
+            if ($data['reviews'] > 0 || $review['count'] === 0) {
+                $this->cache->update($review['website'], $data['url'], $data['reviews'], $data['score']);
+            }
 
             sleep(rand(1, 5));
 

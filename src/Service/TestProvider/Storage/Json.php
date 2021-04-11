@@ -20,6 +20,10 @@ class Json implements Storage
 
     public function load(): array
     {
+        if (file_exists($this->getDataFile()) === false) {
+            return [];
+        }
+
         $content = file_get_contents($this->getDataFile());
         if ($content === false) {
             return [];
