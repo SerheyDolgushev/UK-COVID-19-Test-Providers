@@ -145,13 +145,13 @@
         layout:"fitColumns",
         placeholder:"No Data Set",
         columns:[
-            {title:"Provider", field: "name", sorter: "string", headerFilter:"input", formatter: "link", formatterParams: {
+            {title:"Provider", field: "name", minWidth: 200, sorter: "string", headerFilter:"input", formatter: "link", formatterParams: {
                     labelField: "name",
                     urlField: "website",
                     target: "_blank",
                 }},
             {title:"Region", width: 175, field: "region", sorter: "string", headerFilter: "select", headerFilterParams: {values: true}},
-            {title:"Email", width: 250, field: "email", headerSort: false, formatter: "link", formatterParams:{
+            {title:"Email", minWidth: 100, field: "email", headerSort: false, formatter: "link", formatterParams:{
                     urlPrefix: "mailto:",
                     target: "_blank",
                 }},
