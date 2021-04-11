@@ -161,7 +161,9 @@
             }},
             {title:"Rating", width: 75, field:"reviews_score", sorter: "number"},
             {title:"Reviews", width: 85, field:"reviews_count", sorter: "number", formatter: "link", formatterParams:{
-                labelField: "reviews_count",
+                label: function(cell) {
+                    return String(cell.getData().reviews_count);
+                },
                 urlField: "reviews_url",
                 target: "_blank",
             }},
