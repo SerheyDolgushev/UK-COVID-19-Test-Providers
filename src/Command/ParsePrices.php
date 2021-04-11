@@ -63,7 +63,6 @@ class ParsePrices extends Command
 
         $reviews = $this->reviews->load();
         $providers = $this->repository->fetchUnique();
-        $providers = array_slice($providers, 0, 10);
 
         $sectionProgress = $output->section();
         $this->sectionErrors = $output->section();
