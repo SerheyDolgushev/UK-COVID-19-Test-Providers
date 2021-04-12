@@ -20,6 +20,13 @@
 
     <link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
+
+    <style>
+        body {
+            max-width: 72em;
+            margin: 2em auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,7 +52,7 @@
     <div id="providers-table"></div>
 
     <div>
-        <h2>How it works?</h2>
+        <h2>How does it work?</h2>
         <ul>
             <li>The providers list is fetched from <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview" target="_blank">https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview</a>.</li>
             <li>The script tries to find all COVID-19 test type links on each provider's website.</li>
@@ -159,25 +166,25 @@
                 urlPrefix: "tel:",
                 target: "_blank",
             }},
-            {title:"Rating", width: 75, field:"reviews_score", sorter: "number"},
-            {title:"Reviews", width: 85, field:"reviews_count", sorter: "number", formatter: "link", formatterParams:{
+            {title:"Rating", field:"reviews_score", width: 106, sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false},
+            {title:"Reviews", field:"reviews_count", width: 106, sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false,  formatter: "link", formatterParams:{
                 label: function(cell) {
                     return String(cell.getData().reviews_count);
                 },
                 urlField: "reviews_url",
                 target: "_blank",
             }},
-            {title:"Fit to Fly", width: 130, field:"fit_to_fly_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+            {title:"Fit to Fly", width: 106, field:"fit_to_fly_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
                 labelField: "fit_to_fly_formatted",
                 urlField: "fit_to_fly_uri",
                 target: "_blank",
             }},
-            {title:"Day 2 & 8", width: 130, field:"day_2_and_8_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+            {title:"Day 2 & 8", width: 106, field:"day_2_and_8_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
                     labelField: "day_2_and_8_formatted",
                     urlField: "day_2_and_8_uri",
                     target: "_blank",
             }},
-            {title:"Test to Release", width: 130, field:"test_to_release_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+            {title:"Test to Release", width: 124, field:"test_to_release_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
                     labelField: "test_to_release_formatted",
                     urlField: "test_to_release_uri",
                     target: "_blank",
