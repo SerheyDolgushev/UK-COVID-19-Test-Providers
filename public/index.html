@@ -36,188 +36,184 @@
     <section class="masthead">
         <h1>FIT TO FLY</h1>
         <p class="is-large">Helping travellers coming into the U.K. find clinics for COVID-19 quarantine testing.</p>
+        <div class="block tac">
+            <p class="is-large">Data is updated every 3 hours and fetched from <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview"> here</a>.
+        </div>
     </section>
-
-    <div class="masthead-image"></div>
 
     <section class="body">
         <div class="container">
-            <div class="block tac">
-                <p class="is-large">Data is updated every 3 hours and fetched from <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview"> here</a>.
-                <p class="is-large">Latest raw data: <a href="/provider_prices.csv">provider_prices.csv</a>.</p>
-            </div>
-
             <div id="providers-table" class="block"></div>
+            <p class="tar">Latest raw data: <a href="/provider_prices.csv">provider_prices.csv</a></p>
+        </div>
+
+        <div class="container-small mt-50">
+            <h2>Definitions</h2>
+            <ul>
+                <li>
+                    <a class="tac" href="https://www.gov.uk/guidance/coronavirus-covid-19-safer-air-travel-guidance-for-passengers#before-booking-a-flight--travel-restrictions" target="_blank">Fit to Fly</a>
+                    <p>Test for international travelers who are leaving UK (depends on the travel destination).</p>
+                </li>
+                <li>
+                    <a class="tac" href="https://www.gov.uk/guidance/testing-on-day-2-and-day-8-for-international-arrivals" target="_blank">Day 2 and day 8 for international arrivals</a>
+                    <p>Two tests which all international arrivals are required to take.</p>
+                </li>
+                <li>
+                    <a class="tac" href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel" target="_blank">Test to Release</a>
+                    <p>Voluntary test for international arrivals, which is taken on day 5. If it is negative you can stop quarantine but still <a href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel#if-you-test-negative" target="_blank">required to take Day 8 test</a>.</p>
+                </li>
+            </ul>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <div class="block">
-                <ul>
-                    <li>
-                        <a href="https://www.gov.uk/guidance/coronavirus-covid-19-safer-air-travel-guidance-for-passengers#before-booking-a-flight--travel-restrictions" target="_blank">Fit to Fly</a> - Test for international travelers who are leaving UK (depends on the travel destination).
-                    </li>
-                    <li>
-                        <a href="https://www.gov.uk/guidance/testing-on-day-2-and-day-8-for-international-arrivals" target="_blank">Day 2 and day 8 for international arrivals</a> - Two tests which all international arrivals are required to take.
-                    </li>
-                    <li>
-                        <a href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel" target="_blank">Test to Release</a> - Voluntary test for international arrivals, which is taken on day 5. If it is negative you can stop quarantine but still <a href="https://www.gov.uk/guidance/coronavirus-covid-19-test-to-release-for-international-travel#if-you-test-negative" target="_blank">required to take Day 8 test</a>.
-                    </li>
-                </ul>
-            </div>
+    <section>
+        <div class="container-small mt-50">
+            <h2>How does it work?</h2>
+
+            <ul>
+                <li>The providers list is fetched from <a class="wb" href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview" target="_blank">https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview</a>.</li>
+                <li>The script tries to find all COVID-19 test type links on each provider's website.</li>
+                <li>
+                    Each test type has predefined list of words:
+                    <dl>
+                        <dt>Fit to Fly</dt>
+                        <dd>fit, fly</dd>
+                        <dt>Day 2 & 8</dt>
+                        <dd>2, two, 8, eight, arrival</dd>
+                        <dt>Test to Release</dt>
+                        <dd>release, covid</dd>
+                    </dl>
+                </li>
+                <li>The script extracts words from all links (URI and text) on the provider main page. And uses only matched links for each test type. The links with most words matched have higher priority.</li>
+                <li>If the matched link has the price in its text it will be used. Otherwise, the link URI is requested.</li>
+                <li>If the requested page has special "price" HTML elements the script will try to extract the price from them.</li>
+                <li>All the prices are extracted from the requested page. Too low and too high prices are ignored (limits depend on the test type). The minimal price is used from the non ignored (valid) ones.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="mt-50">
+        <div class="container tac">
+            <h2>Suggestions?</h2>
+            <p class="mb-15">If you have an idea how the tool can be improved, please feel free to <a href="mailto:dolgushev.serhey@gmail.com">contact me</a>.</p>
+            <div class="platform_sh_widget mt-50">Hosting sponsored by the <a title="platform.sh" href="http://platform.sh/?medium=referral&utm_campaign=sponsored_sites&utm_source=ukcovidtests.ccplatform.net"><img class="platformsh-logo" src="https://platform.sh/logos/redesign/Platformsh_logo_white@2x.png" alt="platform.sh logo" style="padding: 0 3px 0 3px;height: 1.1em; vertical-align: text-bottom;"/></a> <a href="http://platform.sh/?medium=referral&utm_campaign=sponsored_sites&utm_source=ukcovidtests.ccplatform.net">PHP Cloud Hosting</a> Service</div>
         </div>
     </footer>
 
-    <div>
-        <p>Latest raw data: <a href="/provider_prices.csv">provider_prices.csv</a></p>
-    </div>
-    <div id="providers-table"></div>
-
-    <div>
-        <h2>How does it work?</h2>
-        <ul>
-            <li>The providers list is fetched from <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview" target="_blank">https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview</a>.</li>
-            <li>The script tries to find all COVID-19 test type links on each provider's website.</li>
-            <li>
-                Each test type has predefined list of words:
-                <dl>
-                    <dt>Fit to Fly</dt>
-                    <dd>fit, fly</dd>
-                    <dt>Day 2 & 8</dt>
-                    <dd>2, two, 8, eight, arrival</dd>
-                    <dt>Test to Release</dt>
-                    <dd>release, covid</dd>
-                </dl>
-            </li>
-            <li>The script extracts words from all links (URI and text) on the provider main page. And uses only matched links for each test type. The links with most words matched have higher priority.</li>
-            <li>If the matched link has the price in its text it will be used. Otherwise, the link URI is requested.</li>
-            <li>If the requested page has special "price" HTML elements the script will try to extract the price from them.</li>
-            <li>All the prices are extracted from the requested page. Too low and too high prices are ignored (limits depend on the test type). The minimal price is used from the non ignored (valid) ones.</li>
-        </ul>
-    </div>
-
-    <div>
-        <h2>Suggestions?</h2>
-        <p>If you have an idea how the tool can be improved, please feel free to <a href="mailto:dolgushev.serhey@gmail.com">contact me</a>.</p>
-    </div>
-
-    <div class="platform_sh_widget">Hosting sponsored by the <a title="platform.sh" href="http://platform.sh/?medium=referral&utm_campaign=sponsored_sites&utm_source=ukcovidtests.ccplatform.net"><img class="platformsh-logo" src="https://platform.sh/images/logo-dark-2x.png" alt="platform.sh logo" style="padding: 0 3px 0 3px;height: 1.1em; vertical-align: text-bottom;"/></a> <a href="http://platform.sh/?medium=referral&utm_campaign=sponsored_sites&utm_source=ukcovidtests.ccplatform.net">PHP Cloud Hosting</a> Service</div>
-
     <script>
-    var minMaxFilterEditor = function(cell, onRendered, success, cancel, editorParams){
-        var end;
-        var container = document.createElement("span");
+        var minMaxFilterEditor = function(cell, onRendered, success, cancel, editorParams){
+            var end;
+            var container = document.createElement("span");
 
-        //create and style inputs
-        var start = document.createElement("input");
-        start.setAttribute("type", "number");
-        start.setAttribute("placeholder", "Min");
-        start.setAttribute("min", 0);
-        start.setAttribute("max", 100);
-        start.style.padding = "4px";
-        start.style.width = "50%";
-        start.style.boxSizing = "border-box";
-        start.value = cell.getValue();
+            //create and style inputs
+            var start = document.createElement("input");
+            start.setAttribute("type", "number");
+            start.setAttribute("placeholder", "Min");
+            start.setAttribute("min", 0);
+            start.setAttribute("max", 100);
+            start.style.padding = "4px";
+            start.style.width = "50%";
+            start.style.boxSizing = "border-box";
+            start.value = cell.getValue();
 
-        function buildValues(){
-            success({
-                start:start.value,
-                end:end.value,
-            });
-        }
-
-        function keypress(e){
-            if(e.keyCode == 13){
-                buildValues();
+            function buildValues(){
+                success({
+                    start:start.value,
+                    end:end.value,
+                });
             }
 
-            if(e.keyCode == 27){
-                cancel();
-            }
-        }
-
-        end = start.cloneNode();
-        end.setAttribute("placeholder", "Max");
-
-        start.addEventListener("change", buildValues);
-        start.addEventListener("blur", buildValues);
-        start.addEventListener("keydown", keypress);
-
-        end.addEventListener("change", buildValues);
-        end.addEventListener("blur", buildValues);
-        end.addEventListener("keydown", keypress);
-
-        container.appendChild(start);
-        container.appendChild(end);
-
-        return container;
-    }
-    var minMaxFilter = function(headerValue, rowValue, rowData, filterParams){
-        if (rowValue){
-            if(headerValue.start != ""){
-                if(headerValue.end != ""){
-                    return rowValue >= headerValue.start && rowValue <= headerValue.end;
-                }else{
-                    return rowValue >= headerValue.start;
+            function keypress(e){
+                if(e.keyCode == 13){
+                    buildValues();
                 }
-            } else {
-                if(headerValue.end != ""){
-                    return rowValue <= headerValue.end;
+
+                if(e.keyCode == 27){
+                    cancel();
                 }
             }
+
+            end = start.cloneNode();
+            end.setAttribute("placeholder", "Max");
+
+            start.addEventListener("change", buildValues);
+            start.addEventListener("blur", buildValues);
+            start.addEventListener("keydown", keypress);
+
+            end.addEventListener("change", buildValues);
+            end.addEventListener("blur", buildValues);
+            end.addEventListener("keydown", keypress);
+
+            container.appendChild(start);
+            container.appendChild(end);
+
+            return container;
+        }
+        var minMaxFilter = function(headerValue, rowValue, rowData, filterParams){
+            if (rowValue){
+                if(headerValue.start != ""){
+                    if(headerValue.end != ""){
+                        return rowValue >= headerValue.start && rowValue <= headerValue.end;
+                    }else{
+                        return rowValue >= headerValue.start;
+                    }
+                } else {
+                    if(headerValue.end != ""){
+                        return rowValue <= headerValue.end;
+                    }
+                }
+            }
+
+            return (headerValue.start != "" || headerValue.end != "") ? false : true;
         }
 
-        return (headerValue.start != "" || headerValue.end != "") ? false : true;
-    }
-
-    //Build Tabulator
-    var table = new Tabulator("#providers-table", {
-        height:"500px",
-        layout:"fitColumns",
-        placeholder:"No Data Set",
-        columns:[
-            {title:"Provider", field: "name", minWidth: 200, sorter: "string", headerFilter:"input", formatter: "link", formatterParams: {
-                    labelField: "name",
-                    urlField: "website",
+        //Build Tabulator
+        var table = new Tabulator("#providers-table", {
+            height:"500px",
+            layout:"fitColumns",
+            placeholder:"No Data Set",
+            columns:[
+                {title:"Provider", field: "name", minWidth: 200, sorter: "string", headerFilter:"input", formatter: "link", formatterParams: {
+                        labelField: "name",
+                        urlField: "website",
+                        target: "_blank",
+                    }},
+                {title:"Region", width: 175, field: "region", sorter: "string", headerFilter: "select", headerFilterParams: {values: true}},
+                {title:"Email", minWidth: 100, field: "email", headerSort: false, formatter: "link", formatterParams:{
+                        urlPrefix: "mailto:",
+                        target: "_blank",
+                    }},
+                {title:"Telephone", width: 100, field: "phone", headerSort: false, formatter: "link", formatterParams:{
+                    urlPrefix: "tel:",
                     target: "_blank",
                 }},
-            {title:"Region", width: 175, field: "region", sorter: "string", headerFilter: "select", headerFilterParams: {values: true}},
-            {title:"Email", minWidth: 100, field: "email", headerSort: false, formatter: "link", formatterParams:{
-                    urlPrefix: "mailto:",
+                {title:"Rating", field:"reviews_score", width: 106, sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false},
+                {title:"Reviews", field:"reviews_count", width: 106, sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false,  formatter: "link", formatterParams:{
+                    label: function(cell) {
+                        return String(cell.getData().reviews_count);
+                    },
+                    urlField: "reviews_url",
                     target: "_blank",
                 }},
-            {title:"Telephone", width: 100, field: "phone", headerSort: false, formatter: "link", formatterParams:{
-                urlPrefix: "tel:",
-                target: "_blank",
-            }},
-            {title:"Rating", field:"reviews_score", width: 106, sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false},
-            {title:"Reviews", field:"reviews_count", width: 106, sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false,  formatter: "link", formatterParams:{
-                label: function(cell) {
-                    return String(cell.getData().reviews_count);
-                },
-                urlField: "reviews_url",
-                target: "_blank",
-            }},
-            {title:"Fit to Fly", width: 106, field:"fit_to_fly_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
-                labelField: "fit_to_fly_formatted",
-                urlField: "fit_to_fly_uri",
-                target: "_blank",
-            }},
-            {title:"Day 2 & 8", width: 106, field:"day_2_and_8_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
-                    labelField: "day_2_and_8_formatted",
-                    urlField: "day_2_and_8_uri",
+                {title:"Fit to Fly", width: 106, field:"fit_to_fly_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+                    labelField: "fit_to_fly_formatted",
+                    urlField: "fit_to_fly_uri",
                     target: "_blank",
-            }},
-            {title:"Test to Release", width: 124, field:"test_to_release_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
-                    labelField: "test_to_release_formatted",
-                    urlField: "test_to_release_uri",
-                    target: "_blank",
-            }}
-        ],
-        initialSort:[{column: "reviews_score", dir: "desc"}],
-    });
-    table.setData("/provider_prices.json");
+                }},
+                {title:"Day 2 & 8", width: 106, field:"day_2_and_8_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+                        labelField: "day_2_and_8_formatted",
+                        urlField: "day_2_and_8_uri",
+                        target: "_blank",
+                }},
+                {title:"Test to Release", width: 124, field:"test_to_release_price", sorter: "number", headerFilter: minMaxFilterEditor, headerFilterFunc: minMaxFilter, headerFilterLiveFilter: false, formatter: "link", formatterParams:{
+                        labelField: "test_to_release_formatted",
+                        urlField: "test_to_release_uri",
+                        target: "_blank",
+                }}
+            ],
+            initialSort:[{column: "reviews_score", dir: "desc"}],
+        });
+        table.setData("/provider_prices.json");
     </script>
 </body>
 </html>

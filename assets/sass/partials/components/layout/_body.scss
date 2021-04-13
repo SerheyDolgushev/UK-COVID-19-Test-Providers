@@ -1,17 +1,32 @@
 body {
-    background: url("../img/repeat.gif") repeat;
+    background: url("../img/repeat.png") repeat;
     color: $white;
     font-size: 18px;
     line-height: 1.25em;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
 }
 
 .block {
     margin-top: 15px;
     margin-bottom: 15px;
-    &.tac {
+}
+
+.container-small {
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.tac {
+    text-align: center;
+    p {
         text-align: center;
-        p {
-            text-align: center;
-        }
+    }
+}
+
+.tar {
+    text-align: right;
+    p {
+        text-align: right;
     }
 }
