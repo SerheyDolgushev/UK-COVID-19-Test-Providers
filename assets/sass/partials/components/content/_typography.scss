@@ -6,7 +6,7 @@
 
 h1, .h1 {
   @include heading-xxlarge;
-  color: $white;
+  color: $black;
   font-family: $text-header;
   text-shadow: $text-shadow;
 }
@@ -20,7 +20,7 @@ h2 {
 
 p {
   @include body;
-  color: $white;
+  color: $black;
   font-family: $text-body;
   line-height: 1.2em;
   &.is-large {
@@ -29,7 +29,7 @@ p {
 }
 
 a {
-  color: $white;
+  color: $black;
   text-decoration: underline;
   &:hover, &:focus, &:active {
     color: #ccc;

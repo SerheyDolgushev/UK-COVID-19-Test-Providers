@@ -1,3 +1,10 @@
 footer {
+    min-height: 50px;
     padding-bottom: 50px;
+    border-radius: 60% 60% 0 0;
+    background-color: #009444;
+    > div {
+        position: relative;
+        top: 30px;
+    }
 }

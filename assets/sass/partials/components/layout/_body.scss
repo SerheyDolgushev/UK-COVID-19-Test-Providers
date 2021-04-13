@@ -1,9 +1,10 @@
 html {
-    background: url("../img/repeat.png") repeat;
+//    background: url("../img/repeat.png") repeat;
+    background-color: #87ceeb;
 }
 
 body {
-    color: $white;
+    color: $black;
     font-size: 18px;
     line-height: 1.25em;
     margin-top: 0px !important;
@@ -19,6 +20,13 @@ body {
 .container-small {
     max-width: 750px;
     margin: 0 auto;
+    padding: 15px;
+    border: 1px solid $white;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    h2 {
+        margin-top: 15px;
+    }
 }
 
 .tac {
