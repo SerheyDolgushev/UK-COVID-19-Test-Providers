@@ -45,3 +45,22 @@
         border-radius: 0 0 6px 6px;
         border: 1px solid #002a3d;
     }
+
+    #clouds {
+        min-height: 400px;
+        background-image: url("../img/clouds.png");
+        background-repeat: repeat-x;
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+    #clouds {
+        animation: animatedBackground 80s linear infinite;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+    }
+    @keyframes animatedBackground {
+        from { background-position: 0 0; }
+        to { background-position: 100% 0%; }
+    }
