@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace App\Service\TestProvider;
 
+use Exception;
 use Goutte\Client;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpClient\Exception\TransportException;
 
 class PriceExtractor
 {
+    private const DAY2AND8_PRICES_URL = 'https://www.gov.uk/guidance/providers-of-day-2-and-day-8-coronavirus-testing-for-international-arrivals';
+    private const DAY2AND8_CSS_SELECTOR = '#contents > div.gem-c-govspeak.govuk-govspeak > div > table > tbody > tr';
+
     private const EXCLUDE_URLS = ['localhost', '127.0.0.1', 'www.gov.uk'];
     private const TEST_TYPES = [
         'fit_to_fly' => ['fit', 'fly',],
@@ -27,10 +32,45 @@ class PriceExtractor
     ];
 
     private $errorHandler;
+    private $govUkPrices = ['day_2_and_8' => []];
 
     public function setErrorHandler(callable $errorHandler): void
     {
         $this->errorHandler = $errorHandler;
+    }
+
+    public function fetchGovUkPrices(): void
+    {
+        $crawler = (new Client())->request('GET', self::DAY2AND8_PRICES_URL);
+
+        $providers =  $crawler->filter(self::DAY2AND8_CSS_SELECTOR)->each(function (Crawler $node) {
+            try {
+                $website = trim($node->filter('td:nth-child(1) > a')->first()->attr('href'), '/');
+            } catch (Exception $e) {
+                $website = null;
+            }
+
+            try {
+                $price = $node->filter('td:nth-child(5)')->text();
+                $price = (int) str_replace('£', '', $price);
+            } catch (Exception $e) {
+                $price = 0;
+            }
+
+            return ['website' => $website, 'price' => $price];
+        });
+
+        foreach ($providers as $provider) {
+            if (
+                null === $provider['website']
+                || $provider['price'] <= 0
+                || isset($this->govUkPrices['day_2_and_8'][$provider['website']])
+            ) {
+                continue;
+            }
+
+            $this->govUkPrices['day_2_and_8'][$provider['website']] = $provider['price'];
+        }
     }
 
     public function fetchPrices(array $provider): array
@@ -68,6 +108,21 @@ class PriceExtractor
                     break;
                 }
             }
+        }
+
+        $providerUrl = trim($provider['website'], '/');
+        if (
+            isset($this->govUkPrices['day_2_and_8'][$providerUrl])
+            && $prices['day_2_and_8']['price'] < $this->govUkPrices['day_2_and_8'][$providerUrl]
+        ) {
+            // There is no chance extracted price is lower
+            $price = $this->govUkPrices['day_2_and_8'][$providerUrl];
+
+            $prices['day_2_and_8'] = [
+                'uri' => $providerUrl,
+                'price' => $price,
+                'formatted' => '£' . number_format((float) $price, 2),
+            ];
         }
 
         return $prices;

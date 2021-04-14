@@ -74,6 +74,7 @@ class ParsePrices extends Command
         $progressBar->start();
 
         $this->priceExtractor->setErrorHandler([$this, 'error']);
+        $this->priceExtractor->fetchGovUkPrices();
 
         $providersWithoutPricesCount = 0;
         $providersWithPriceData = [];

@@ -9,8 +9,10 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class Repository
 {
-    private const PROVIDERS_URL = 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview';
-    private const PROVIDERS_CSS_SELECTOR = '#page > div.csv-preview > div > table > tbody > tr:not(:first-child)';
+    #private const PROVIDERS_URL = 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview';
+    #private const PROVIDERS_CSS_SELECTOR = '#page > div.csv-preview > div > table > tbody > tr:not(:first-child)';
+    private const PROVIDERS_URL = 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977866/covid-private-testing-providers-general-testing-140421.csv/preview';
+    private const PROVIDERS_CSS_SELECTOR = 'tr.govuk-table__row:not(:first-child)';
 
     public function fetchUnique(): array
     {
