@@ -40,11 +40,11 @@ class Repository
         $providers = [];
         while (($data = fgetcsv($handle)) !== false) {
             $providers[] = [
-                'name' => $data[0],
-                'region' => $data[1],
-                'emails' => $data[2],
-                'phone' => $data[3],
-                'website' => $data[4],
+                'name' => mb_convert_encoding($data[0], 'UTF-8', 'UTF-8'),
+                'region' => mb_convert_encoding($data[1], 'UTF-8', 'UTF-8'),
+                'emails' => mb_convert_encoding($data[2], 'UTF-8', 'UTF-8'),
+                'phone' => mb_convert_encoding($data[3], 'UTF-8', 'UTF-8'),
+                'website' => mb_convert_encoding($data[4], 'UTF-8', 'UTF-8'),
                 'reviews_count' => 0,
                 'reviews_url' => null,
                 'reviews_score' => null,
