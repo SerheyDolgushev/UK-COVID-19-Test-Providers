@@ -11,7 +11,7 @@ class Repository
 {
     #private const PROVIDERS_URL = 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977035/covid-private-testing-providers-general-testing-080421.csv/preview';
     #private const PROVIDERS_CSS_SELECTOR = '#page > div.csv-preview > div > table > tbody > tr:not(:first-child)';
-    private const PROVIDERS_URL = 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/977866/covid-private-testing-providers-general-testing-140421.csv/preview';
+    private const PROVIDERS_URL = 'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/979653/covid-private-testing-providers-general-testing-220421.csv';
     private const PROVIDERS_CSS_SELECTOR = 'tr.govuk-table__row:not(:first-child)';
 
     public function fetchUnique(): array
@@ -32,20 +32,26 @@ class Repository
 
     private function fetchAll(): array
     {
-        $crawler = (new Client())->request('GET', self::PROVIDERS_URL);
+        $handle = fopen(self::PROVIDERS_URL, 'r');
+        // Skip headers
+        fgetcsv($handle);
+        fgetcsv($handle);
 
-        return $crawler->filter(self::PROVIDERS_CSS_SELECTOR)->each(function (Crawler $node) {
-            return [
-                'name' => $this->extractField($node, 1),
-                'region' => $this->extractField($node, 2),
-                'emails' => $this->extractField($node, 3),
-                'phone' => $this->extractField($node, 4),
-                'website' => $this->extractField($node, 5),
+        $providers = [];
+        while (($data = fgetcsv($handle)) !== false) {
+            $providers[] = [
+                'name' => $data[0],
+                'region' => $data[1],
+                'emails' => $data[2],
+                'phone' => $data[3],
+                'website' => $data[4],
                 'reviews_count' => 0,
                 'reviews_url' => null,
                 'reviews_score' => null,
             ];
-        });
+        }
+
+        return $providers;
     }
 
     private function extractField(Crawler $provider, int $cell): string
