@@ -27,8 +27,8 @@ class PriceExtractor
     private const PRICE_REG_EXP = '/(\£([\d]+(\.[\d]{2})?))/u';
     private const PRICE_LIMITS = [
         'fit_to_fly' => [50, 250],
-        'day_2_and_8' => [40, 450],
-        'test_to_release' => [50, 500]
+        'day_2_and_8' => [65, 450],
+        'test_to_release' => [30, 500]
     ];
 
     private $errorHandler;
